@@ -50,15 +50,15 @@
 *domain/api/v1/staff/services/sub-services/update            Admin
 
 # Schedule
-domain/api/v1/staff/schedule            Any
+*domain/api/v1/staff/schedule            Any
 
 # Schedule-Shop
-domain/api/v1/shoptiming                Any
+*domain/api/v1/shoptiming                Any
 
 # About Us
-domain/api/v1/about-us                  Any
+*domain/api/v1/about-us                  Any
 
 # Partnerships
-domain/api/v1/partnerships              Any
-domain/api/v1/partnership/add           Admin
-domain/api/v1/partnership/remove        Admin
+*domain/api/v1/partnerships              Any
+*domain/api/v1/partnership/add           Admin
+*domain/api/v1/partnership/remove        Admin
