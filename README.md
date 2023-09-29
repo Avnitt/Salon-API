@@ -1,12 +1,12 @@
-# API Endpoints                           Permissions
+# API Endpoints                         Permissions
 
-#Authentication
-domain/api/v1/auth/login                Any
-domain/api/v1/auth/logout               Authorized
-domain/api/v1/auth/register             Any
-domain/api/v1/auth/register-staff       Admin
-domain/api/v1/auth/sent-otp             Any
-domain/api/v1/auth/verify-otp           Any
+# Authentication
+domain/api/v1/auth/login                Any\n
+domain/api/v1/auth/logout               Authorized\n
+domain/api/v1/auth/register             Any\n
+domain/api/v1/auth/register-staff       Admin\n
+domain/api/v1/auth/sent-otp             Any\n
+domain/api/v1/auth/verify-otp           Any\n
 
 # Profile
 domain/api/v1/profile                   Authorized
