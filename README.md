@@ -13,9 +13,9 @@
 
 ## Bookings
 * domain/api/v1/bookings                  Authorized
-* domain/api/v1/book-confirm              Authorized
-* domain/api/v1/book-success              Authorized
-* domain/api/v1/book-cancel               Authorized
+* domain/api/v1/book/confirm              Authorized
+* domain/api/v1/book/success              Authorized
+* domain/api/v1/book/cancel               Authorized
 
 ## Notifications
 * domain/api/v1/notification              Authorized
@@ -38,12 +38,6 @@
 * domain/api/v1/staff/services/update           Admin
 
 ## Subservices
-* domain/api/v1/staff/services/sub-services                   Any
-* domain/api/v1/staff/services/sub-services/add               Admin
-* domain/api/v1/staff/services/sub-services/delete            Admin
-* domain/api/v1/staff/services/sub-services/update            Admin
-
-## Schedule
 * domain/api/v1/staff/services/sub-services                   Any
 * domain/api/v1/staff/services/sub-services/add               Admin
 * domain/api/v1/staff/services/sub-services/delete            Admin
