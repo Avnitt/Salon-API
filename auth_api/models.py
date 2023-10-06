@@ -3,7 +3,9 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.hashers import make_password
 
+from django.conf import settings
 from .validators import PhoneValidator
+
 
 class UserManager(BaseUserManager):
     def _create_user(self, phone, **extra_fields):
