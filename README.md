@@ -1,58 +1,58 @@
-# API Endpoints                         Permissions
+## API Endpoints                 
 
-## Authentication
-* domain/api/v1/auth/login                Any
-* domain/api/v1/auth/logout               Authorized
-* domain/api/v1/auth/register             Any
-* domain/api/v1/auth/register-staff       Admin
-* domain/api/v1/auth/sent-otp             Any
-* domain/api/v1/auth/verify-otp           Any
+### Authentication
+* domain/api/v1/auth/generate
+* domain/api/v1/auth/logout 
+* domain/api/v1/auth/verify
 
-## Profile
-* domain/api/v1/profile                   Authorized
+### User
+* domain/api/v1/user
 
-## Bookings
-* domain/api/v1/bookings                  Authorized
-* domain/api/v1/book/confirm              Authorized
-* domain/api/v1/book/success              Authorized
-* domain/api/v1/book/cancel               Authorized
+### Profile
+* domain/api/v1/profile                   
 
-## Notifications
-* domain/api/v1/notification              Authorized
-* domain/api/v1/notification/create       Admin
-* domain/api/v1/notification/send         Admin
-* domain/api/v1/notification/delete       Admin
+### Bookings
+* domain/api/v1/bookings                 
+* domain/api/v1/book/confirm              
+* domain/api/v1/book/success              
+* domain/api/v1/book/cancel               
 
-## Gallery
-* domain/api/v1/gallery                   Any
-* domain/api/v1/gallery/add               Admin
-* domain/api/v1/gallery/delete            Admin
+### Notifications
+* domain/api/v1/notification              
+* domain/api/v1/notification/create       
+* domain/api/v1/notification/send        
+* domain/api/v1/notification/delete       
 
-## Staffs
-* domain/api/v1/staffs                    Any
+### Gallery
+* domain/api/v1/gallery                   
+* domain/api/v1/gallery/add               
+* domain/api/v1/gallery/delete            
 
-## Services
-* domain/api/v1/staff/services                  Any
-* domain/api/v1/staff/services/add              Admin
-* domain/api/v1/staff/services/delete           Admin
-* domain/api/v1/staff/services/update           Admin
+### Staffs
+* domain/api/v1/staffs                   
 
-## Subservices
-* domain/api/v1/staff/services/sub-services                   Any
-* domain/api/v1/staff/services/sub-services/add               Admin
-* domain/api/v1/staff/services/sub-services/delete            Admin
-* domain/api/v1/staff/services/sub-services/update            Admin
+### Services
+* domain/api/v1/staff/services                  
+* domain/api/v1/staff/services/add              
+* domain/api/v1/staff/services/delete           
+* domain/api/v1/staff/services/update           
 
-## Schedule
-* domain/api/v1/staff/schedule            Any
+### Subservices
+* domain/api/v1/staff/services/sub-services                   
+* domain/api/v1/staff/services/sub-services/add               
+* domain/api/v1/staff/services/sub-services/delete            
+* domain/api/v1/staff/services/sub-services/update            
 
-## Schedule-Shop
-* domain/api/v1/shoptiming                Any
+### Schedule
+* domain/api/v1/staff/schedule            
 
-## About Us
-* domain/api/v1/about-us                  Any
+### Schedule-Shop
+* domain/api/v1/shoptiming                
 
-## Partnerships
-* domain/api/v1/partnerships              Any
-* domain/api/v1/partnership/add           Admin
-* domain/api/v1/partnership/remove        Admin
+### About Us
+* domain/api/v1/about-us                  
+
+### Partnerships
+* domain/api/v1/partnerships              
+* domain/api/v1/partnership/add           
+* domain/api/v1/partnership/remove        
