@@ -63,7 +63,7 @@ class GenerateOTPView(APIView):
 class VerifyOTPView(ObtainAuthToken):
     def post(self, request):
         permission_classes = [permissions.AllowAny]
-        serializer = TokenSerializer(data=request.data)
+        serializer = TokenSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             token, created =  Token.objects.get_or_create(user=serializer.validated_data['user'])
 

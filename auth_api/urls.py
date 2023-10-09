@@ -4,7 +4,7 @@ from .views import GenerateOTPView, VerifyOTPView, LogoutView, api_root, UserVie
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
-router.register(r'users', UserViewSet, basename='user')
+router.register(r'user', UserViewSet, basename='user')
 
 urlpatterns = [
     path('', api_root, name='auth-api'),

@@ -19,7 +19,7 @@ class TokenAuthentication(authentication.TokenAuthentication):
         
         ist_now = datetime.now(pytz.timezone("Asia/Kolkata"))
 
-        if token.created < ist_now - timedelta(minutes=10):
+        if token.created < ist_now - timedelta(hours=10):
             raise exceptions.AuthenticationFailed('Token has expired')
 
         return (token.user, token)
