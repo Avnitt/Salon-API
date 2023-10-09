@@ -40,6 +40,11 @@ class Slot(models.Model):
  #      return datetime.combine(datetime.now().date(), self.start_time) - datetime.combine(datetime.now().date(), self.end_time) 
 
 class Order(models.Model):
+    STATUS = [
+        ('C', 'Completed'),
+        ('X', 'Cancalled'),
+        ('I', 'Incomplete'),
+    ]
     customer = models.ForeignKey("auth_api.User",
                                  on_delete=models.CASCADE,
                                  related_name="orders")
@@ -49,12 +54,8 @@ class Order(models.Model):
                              on_delete=models.CASCADE)
 
     ordered = models.DateTimeField(auto_now_add=True)
-
-    def total(self):
-        sum = 0
-        for item in self.items:
-            sum += item.price()
-
+    total = models.CharField(max_length=10)
+    status = models.CharField(max_length=1, choices=STATUS)
 
 class Item(models.Model):
     order = models.ForeignKey("Order",
@@ -62,6 +63,3 @@ class Item(models.Model):
                               related_name="items")
     subservice = models.OneToOneField("Subservice",
                                       on_delete=models.CASCADE)
-
-    def price(self):
-        return int(self.subservice.price)

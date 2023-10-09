@@ -2,8 +2,8 @@ from rest_framework import viewsets
 from rest_framework import permissions
 
 from auth_api.authentication import TokenAuthentication
-from .serializers import ServiceSerializer, SubserviceSerializer, SlotSerializer
-from .models import Service, Subservice, Slot
+from .serializers import ServiceSerializer, SubserviceSerializer, SlotSerializer, OrderSerializer
+from .models import Service, Subservice, Slot, Item, Order
 
 class ServiceViewSet(viewsets.ModelViewSet):
     queryset = Service.objects.all()
@@ -12,7 +12,6 @@ class ServiceViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save()
-
  
     def get_permissions(self):
         if self.action == 'list' or self.action == 'retreive':
@@ -41,9 +40,19 @@ class SlotViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save()
-
  
     def get_permissions(self):
         if self.action == 'list' or self.action == 'retreive':
             return [permissions.AllowAny()]
         return super().get_permissions()
+
+class OrderViewSet(viewsets.ModelViewSet):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        temp = 0
+        for item in serializer.data['items']:
+            temp += int(item.subservice.price)
+        serializer.save(total=temp)
