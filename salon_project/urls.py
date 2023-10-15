@@ -19,7 +19,20 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+
+@api_view(['GET'])
+def api_root(request):
+    return Response({
+        'Authentication': reverse('generate-otp',  request=request),
+        'User': reverse('user', request=request),
+        'Service': reverse('service', request=request),
+        'Subservice': reverse('subservice', request=request)
+        'Slot': reverse('slot', request=request)
+        'Order': reverse('order', request=request)
+    })
+
 urlpatterns = [
+    path('', api_root),
     path('api/v1/', include('book.urls')),
     path('api/v1/', include('auth_api.urls')),
     path('admin/', admin.site.urls),

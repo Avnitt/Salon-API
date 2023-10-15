@@ -19,11 +19,16 @@ class PhoneSerializer(serializers.Serializer):
     )
     def validate(self, attrs):
         phone = attrs.get('phone')
+
         if phone:
-            try:
-                user = User.objects.get(phone=phone)
-            except User.DoesNotExist:
-                user = User.objects.create(phone=phone)
+            if phone_validator(phone):
+                try:
+                    user = User.objects.get(phone=phone)
+                except User.DoesNotExist:
+                    user = User.objects.create(phone=phone)
+            else:
+                msg = _('Invalid Number')
+                raise serializers.ValidationError(msg, code='authorization')
         else:
             msg = _('Must include "Phone"')
             raise serializers.ValidationError(msg, code='authorization')

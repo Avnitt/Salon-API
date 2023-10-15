@@ -37,12 +37,11 @@ class Slot(models.Model):
 
     def __str__(self):
         return f'{self.start_time} - {self.end_time}'
- #      return datetime.combine(datetime.now().date(), self.start_time) - datetime.combine(datetime.now().date(), self.end_time) 
 
 class Order(models.Model):
     STATUS = [
         ('C', 'Completed'),
-        ('X', 'Cancalled'),
+        ('X', 'Cancelled'),
         ('I', 'Incomplete'),
     ]
     customer = models.ForeignKey("auth_api.User",
@@ -54,12 +53,16 @@ class Order(models.Model):
                              on_delete=models.CASCADE)
 
     ordered = models.DateTimeField(auto_now_add=True)
-    total = models.CharField(max_length=10)
-    status = models.CharField(max_length=1, choices=STATUS)
+    total = models.CharField(max_length=10,
+                             default=0)
+    status = models.CharField(default='I',
+                              max_length=1,
+                              choices=STATUS)
 
 class Item(models.Model):
     order = models.ForeignKey("Order",
                               on_delete=models.CASCADE,
                               related_name="items")
     subservice = models.OneToOneField("Subservice",
+                                      "auth_api.User",
                                       on_delete=models.CASCADE)
