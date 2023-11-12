@@ -6,7 +6,6 @@ from django.contrib.auth.hashers import make_password
 from django.conf import settings
 from .validators import PhoneValidator
 
-
 class UserManager(BaseUserManager):
     def _create_user(self, phone, **extra_fields):
         if not phone:
@@ -37,15 +36,14 @@ class UserManager(BaseUserManager):
         return self._create_user(phone, **extra_fields)
 
 class User(AbstractBaseUser):
-    phone_validator = PhoneValidator()
     phone = models.CharField(
         _("phone"),
-        max_length=150,
+        max_length=10,
         unique=True,
         help_text=_(
-            "Required. Please Enter a valid Phone Number."
+            "Enter a valid Phone Number."
         ),
-        validators = [phone_validator],
+        validators = [PhoneValidator],
         error_messages={
             "unique": _("A user with that username already exists."),
         }
@@ -73,7 +71,7 @@ class User(AbstractBaseUser):
         ),
     )
     date_joined = models.DateTimeField(_("date_joined"), auto_now_add=True)
-
+    password_created = models.DateTimeField(_('password_created'), auto_now=True)
     objects = UserManager()
 
     USERNAME_FIELD = 'phone'

@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework.decorators import api_view
 
 
 @api_view(['GET'])
@@ -26,9 +27,9 @@ def api_root(request):
         'Authentication': reverse('generate-otp',  request=request),
         'User': reverse('user', request=request),
         'Service': reverse('service', request=request),
-        'Subservice': reverse('subservice', request=request)
-        'Slot': reverse('slot', request=request)
-        'Order': reverse('order', request=request)
+        'Subservice': reverse('subservice', request=request),
+        'Slot': reverse('slot', request=request),
+        'Order': reverse('order', request=request),
     })
 
 urlpatterns = [

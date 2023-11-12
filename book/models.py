@@ -11,32 +11,39 @@ class Service(models.Model):
     desc = models.TextField()
 
     def __str__(self):
-        return self.title[:20]
+        return self.title
 
 class Subservice(models.Model):
-    service = models.ForeignKey("Service",
-                                on_delete=models.CASCADE)
+    service = models.ForeignKey(Service,
+                                on_delete=models.CASCADE,
+                                related_name='subservices')
     image_url = models.ImageField(upload_to='subservice')
     title = models.CharField(max_length=200,
                              null=False,
                              blank=False)
-    price = models.CharField(max_length=10,
-                             null=True,
-                             blank=True)
+    price = models.IntegerField()
 
     def __str__(self):
-        return title[:20]
+        return self.title
+
+class Professional(models.Model):
+    image_url = models.ImageField(upload_to='professional')
+    name = models.CharField(max_length=200)
+    desc = models.TextField()
+    subservice = models.ManyToManyField(Subservice,
+                                   related_name="professionals")
+
+    def __str__(self):
+        return self.name
 
 class Slot(models.Model):
-    staff = models.ForeignKey("auth_api.User",
+    professional = models.ForeignKey(Professional,
                               on_delete=models.CASCADE,
                               related_name="slots")
-    start_time = models.TimeField()
-    end_time = models.TimeField()
-    date = models.DateField()
+    time = models.DateTimeField()
 
     def __str__(self):
-        return f'{self.start_time} - {self.end_time}'
+        return self.time
 
 class Order(models.Model):
     STATUS = [
@@ -47,14 +54,11 @@ class Order(models.Model):
     customer = models.ForeignKey("auth_api.User",
                                  on_delete=models.CASCADE,
                                  related_name="orders")
-    staff = models.ForeignKey("auth_api.User",
-                                 on_delete=models.CASCADE)
-    slot = models.OneToOneField("Slot",
-                             on_delete=models.CASCADE)
-
-    ordered = models.DateTimeField(auto_now_add=True)
-    total = models.CharField(max_length=10,
-                             default=0)
+    professional = models.ForeignKey(Professional,
+                                     on_delete=models.CASCADE,
+                                     related_name="orders")
+    ordered_at = models.DateTimeField(auto_now_add=True)
+    total = models.IntegerField(default=0)
     status = models.CharField(default='I',
                               max_length=1,
                               choices=STATUS)
@@ -64,5 +68,9 @@ class Item(models.Model):
                               on_delete=models.CASCADE,
                               related_name="items")
     subservice = models.OneToOneField("Subservice",
-                                      "auth_api.User",
                                       on_delete=models.CASCADE)
+    slot = models.OneToOneField(Slot,
+                             on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.subservice.title

@@ -3,14 +3,16 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from .validators import phone_validator
 from django.utils.translation import gettext_lazy as _
+from datetime import datetime, timedelta
+import pytz
+
 
 User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
-
+        exclude = ['password']
 
 class PhoneSerializer(serializers.Serializer):
     phone = serializers.CharField(
@@ -58,9 +60,17 @@ class TokenSerializer(serializers.Serializer):
         if phone and otp:
             user = authenticate(request=self.context.get('request'),
                                 phone=phone, password=otp)
+
+            ist_now = datetime.now(pytz.timezone("Asia/Kolkata"))
+            
             if not user:
                 msg = _('Invalid OTP')
                 raise serializers.ValidationError(msg, code='authorization')
+            
+            if user.password_created < ist_now - timedelta(minutes=30):
+                msg = _('OTP Expired')
+                raise serializers.ValidationError(msg, code='authorization')
+        
         else:
             msg = _('Please enter OTP')
             raise serializers.ValidationError(msg, code='authorization')

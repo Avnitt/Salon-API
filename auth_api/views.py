@@ -31,23 +31,17 @@ def api_root(request):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAdminUser]
     authentication_classes = [TokenAuthentication]
 
     def perform_create(self, serializer):
         serializer.save()
     
-    def get_permissions(self):
-        if self.action == 'create':
-            return [permissions.AllowAny()]
-        return super().get_permissions()
-
 def generate_otp(user):
     otp = random.randint(100000, 999999)
     user.password = make_password(str(otp))
     user.save()
     return otp
-
 
 class GenerateOTPView(APIView):
     def post(self,request):

@@ -1,6 +1,25 @@
 from rest_framework import serializers
+from django.contrib.auth import get_user_model
+from .models import Service, Subservice, Slot, Item, Order, Professional
 
-from .models import Service, Subservice, Slot, Item, Order
+class ItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Item
+        fields = '__all__'
+
+class OrderSerializer(serializers.ModelSerializer):
+    items = ItemSerializer(many=True)
+
+    class Meta:
+        model = Order
+        fields = '__all__'
+
+class ProfileSerializer(serializers.Serializer):
+    orders = OrderSerializer(many=True)
+    
+    class Meta:
+        model = get_user_model()
+        exclude = ['id', 'last_login', 'is_active','password','password_created']
 
 class ServiceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,14 +36,7 @@ class SlotSerializer(serializers.ModelSerializer):
         model = Slot
         fields = '__all__'
 
-class ItemSerializer(serializers.ModelSerializer):
+class ProfessionalSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Item
-        field = '__all__'
-
-class OrderSerializer(serializers.ModelSerializer):
-    items = ItemSerializer(many=True)
-
-    class Meta:
-        model = Order
-        field = '__all__'
+        model = Professional
+        fields = '__all__'
